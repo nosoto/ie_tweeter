@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+    {% for user in users %}
+        {% if user[0] != current_user %}
+
+            <div class="user">
+                <img src="{{ user[2] }}" alt="image for {{ user[1] }}" class="profile">
+                <span><a href="{{ url_for('user_detail', user_id=user[0]) }}">{{ user[1] }}</a>
+
+
+                    {% if user[0] not in followee_ids %}
+                        <a class="btn btn-primary" href="{{ url_for('follow', followee=user[0]) }}">follow</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{{ url_for('unfollow', followee=user[0]) }}">unfollow</a>
+                    {% endif %}
+
+
+                    <a class="btn btn-primary"
+                       href="{{ url_for('message', recipient_id=user[0]) }}">message</a></span>
+                </span>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+{% endblock %}

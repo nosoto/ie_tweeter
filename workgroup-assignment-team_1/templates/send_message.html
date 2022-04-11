@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+    <div class="message-container">
+        <h3>New message for {{ recipient[1] }}</h3>
+        <form action="/send-message/{{ recipient[0] }}" method="POST">
+            <input name="message-body" type="text" class="form-control" id="message-body"
+                   placeholder="Type your message here">
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Send</button>
+        </form>
+
+        <h4>Old messages:</h4>
+        <div id="messages">
+            {% for message in messages %}
+                {% if message[1] == recipient[0] %}
+                    <div class="message">
+                        <img src="{{ recipient[2] }}" alt="image for {{ recipient[1] }}" class="right">
+                        <p>{{ message[0] }}</p>
+                        <span class="time-left">{{ message[2] }}</span>
+                    </div>
+                {% else %}
+                    <div class="message darker">
+                        <img src="{{ sender[2] }}" alt="image for {{ sender[1] }}">
+                        <p>{{ message[0] }}</p>
+                        <span class="time-right">{{ message[2] }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

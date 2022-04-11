@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+    {% if not session['username'] %}
+        <div class="px-4 py-5 my-5 text-center">
+            <h1 class="display-5 fw-bold" style="color: blue">Tweeter</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">Team 1 has added a couple of features to the coolest tweeter clone, check them
+                    out:</p>
+                <ol>
+                    <li>Now you can send direct messages to all users by simply going to the Users tab and clicking the
+                        Message button
+                    </li>
+                    <li>The Follow feature has been modified to disable following yourself or sending DMs to yourself
+                    </li>
+                    <li>You can also search tweets from people you follow containing a word</li>
+                    <li>You can follow and unfollow people</li>
+                    <li>You can like tweets from the people you follow</li>
+                </ol>
+                <p><i>Contributors: Nick, Nora, Alvaro, Elena, Solomon</i></p>
+            </div>
+        </div>
+    {% else %}
+
+        <form action="/tweet" method="POST">
+            <textarea name="tweet" id="tweet">Write something here!</textarea>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Tweet!</button>
+        </form>
+
+        <hr>
+
+        <div id="tweets">
+            {% for tweet in tweets %}
+                <div class="tweet">
+                    <img src="{{ tweet[1] }}" alt="image for {{ tweet[2] }}" class="profile">
+                    <span><a
+                            href="{{ url_for('user_detail', user_id=tweet[0]) }}">{{ tweet[2] }}</a>: {{ tweet[3] }}</span>
+                    {% if tweet[4] not in liked_tweets %}
+                        <a href="{{ url_for('like', tweet_id=tweet[4], user_id=tweet[0]) }}"><i class="fa fa-heart-o"
+                                                                                                aria-hidden="true"></i></a>
+                    {% else %}
+                        <a href="{{ url_for('dislike', tweet_id=tweet[4], user_id=tweet[0]) }}"><i
+                                style="color: red" class="fa fa-heart"></i></a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+{% endblock %}

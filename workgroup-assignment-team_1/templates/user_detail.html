@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div id="tweets">
+        <h4 style="color: blue">{{ user[1] }}'s tweets:</h4>
+        {% for tweet in tweets %}
+            <div class="tweet">
+                <img src="{{ user[2] }}" alt="image for {{ user[1] }}" class="profile">
+                <span><a href="{{ url_for('user_detail', user_id=user[0]) }}">{{ user[1] }}</a>: {{ tweet[0] }}</span>
+                {% if tweet[1] not in liked_tweets %}
+                    <a href="{{ url_for('like', tweet_id=tweet[1], user_id=user[0]) }}"><i class="fa fa-heart-o"
+                                                                                           aria-hidden="true"></i></a>
+                {% else %}
+                    <a href="{{ url_for('dislike', tweet_id=tweet[1], user_id=user[0]) }}"><i
+                            style="color: red" class="fa fa-heart"></i></a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
