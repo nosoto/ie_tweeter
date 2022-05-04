@@ -3,7 +3,7 @@
 The idea of this exercise is to build upon the Tweeter project we
 worked on in class.
 
-In this assignment you'll work in groups to implement the following
+In this assignment you'll implement the following
 features:
 
 - **Direct messages**: There's a new table in the database,
