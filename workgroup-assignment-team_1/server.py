@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import time
 
 tweeter = Flask(__name__)
+## Remove Secret Key when making repro public
 tweeter.config["SECRET_KEY"] = "this is not secret, remember, change it!"
 engine = create_engine("sqlite:///tweeter.db")
 
